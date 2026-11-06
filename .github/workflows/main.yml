@@ -1,0 +1,25 @@
+name: Telegram Trading Bot
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # ప్రతి 6 గంటలకు ఒకసారి ఆటోమేటిక్ గా రన్ అవుతుంది
+  workflow_dispatch: # మీరు మాన్యువల్ గా కూడా రన్ చేసుకోవచ్చు
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350 # 5 గంటల 50 నిమిషాలు రన్ అవుతుంది (GitHub లిమిట్)
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+        
+      - name: Run Bot
+        run: python bot.py
